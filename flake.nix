@@ -42,6 +42,7 @@
         imports = [
           ./nix/lib
 
+          ./nix/external-plugins.nix
           ./nix/formatter.nix
           ./nix/checks.nix
           ./nix/shell.nix
