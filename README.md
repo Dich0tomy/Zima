@@ -29,6 +29,13 @@
 
 # Cold neovim configs
 
+What to work on:
+- [x] Pick the plugins I wanna use
+- [x] Add plugins that aren't in nixpkgs
+- [ ] Write a wrapper around my config as a plugin (this will take an enormous amount of time)
+- [ ] Create configurations for said plugins, one by one, modules
+- [ ] ...
+
 ## Flake packages:
 - `.#zima`
 - `.#default` (points to zima)
