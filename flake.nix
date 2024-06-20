@@ -46,7 +46,7 @@
           ./nix/formatter.nix
           ./nix/checks.nix
           ./nix/shell.nix
-          ./nix/zima
+          ./nix/neovims
         ];
       };
     };
