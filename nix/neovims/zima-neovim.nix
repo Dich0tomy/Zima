@@ -1,6 +1,6 @@
 {
   self',
-  npins,
+  npins',
   zima-lib,
   wrapNeovimUnstable,
   neovim-unwrapped,
@@ -14,7 +14,9 @@
   hello,
 }:
 zima-lib.mkNeovim {
-  src = npins.neovim;
+  name = "zima";
+
+  src = npins'.neovim;
 
   plugins = with vimPlugins;
     [
@@ -79,7 +81,7 @@ zima-lib.mkNeovim {
       # https://github.com/mobily/.nvim/tree/main/lua/pickers/spectre
       # github prescientmoon/scrap.nvim -- contribute to that bitch, add a Subst
     ]
-    ++ builtins.attrValues self'.legacyPackages.vimPlugins;
+    ++ builtins.attrValues (self'.legacyPackages.vimPlugins or {});
 
   extraLuaPackages = p: [
     p.magick

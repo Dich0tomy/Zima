@@ -1,10 +1,12 @@
 {
+  writeShellApplication,
   wrapNeovimUnstable,
   neovim-unwrapped,
   neovimUtils,
   lib,
   ...
 }: {
+  name,
   src,
   plugins ? [],
   runtimeInputs ? [],
@@ -22,8 +24,8 @@
   config = neovimUtils.makeNeovimConfig {
     inherit plugins extraLuaPackages;
   };
-in
-  (wrapNeovimUnstable neovim config).overrideAttrs (prev: {
+
+  wrapped-neovim = (wrapNeovimUnstable neovim config).overrideAttrs (prev: {
     generatedWrapperArgs =
       prev.generatedWrapperArgs
       or []
@@ -33,4 +35,14 @@ in
         ":"
         (lib.makeBinPath runtimeInputs)
       ];
-  })
+  });
+in
+  writeShellApplication {
+    inherit name;
+
+    runtimeInputs = [wrapped-neovim];
+
+    text = ''
+      nvim --clean "$@"
+    '';
+  }
