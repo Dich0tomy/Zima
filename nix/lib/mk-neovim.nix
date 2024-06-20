@@ -8,6 +8,7 @@
   src,
   plugins ? [],
   runtimeInputs ? [],
+  extraLuaPackages ? (_: []),
 }: let
   neovim = neovim-unwrapped.overrideAttrs {
     src = src;
@@ -19,7 +20,7 @@
   };
 
   config = neovimUtils.makeNeovimConfig {
-    inherit plugins;
+    inherit plugins extraLuaPackages;
   };
 in
   (wrapNeovimUnstable neovim config).overrideAttrs (prev: {
