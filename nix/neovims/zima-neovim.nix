@@ -71,11 +71,12 @@ zima-lib.mkNeovim {
       glance-nvim
       stylish-nvim
       scope-nvim
-      replacer-nvim
-      telescope-sg
+      telescope-sg # Telescope for semantic grep
       fleet-theme-nvim
-      hmts-nvim
+      replacer-nvim # Inline replacing in qflist
+      hmts-nvim # Treesitter highlighting of home manager inline code
       nvim-bqf
+      lz-n # Lazy loading
 
       # Check options https://github.com/vhyrro/config/blob/main/rocks.toml
       # https://github.com/mobily/.nvim/tree/main/lua/pickers/spectre

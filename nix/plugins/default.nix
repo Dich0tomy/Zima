@@ -10,10 +10,11 @@
     npins',
     ...
   }: {
+    # https://github.com/otavioschwanck/arrow.nvim
     legacyPackages.vimPlugins =
       {
-        zima-config-plugin = pkgs.callPackage ./zima-config {inherit self;};
-        zima-framework-plugin = pkgs.callPackage ./zima-framework {inherit self;};
+        zima-config = pkgs.callPackage ./zima-config {inherit self;};
+        zima-framework = pkgs.callPackage ./zima-framework {inherit self;};
       }
       // (import ./npins-plugins (pkgs // {inherit npins';}));
   };
