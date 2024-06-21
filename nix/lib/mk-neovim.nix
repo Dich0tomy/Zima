@@ -26,6 +26,10 @@
   };
 
   wrapped-neovim = (wrapNeovimUnstable neovim config).overrideAttrs (prev: {
+    postFixup = prev.postFixup or "" + ''
+      mv $out/bin/{nvim,${name}}
+    '';
+
     generatedWrapperArgs =
       prev.generatedWrapperArgs
       or []
@@ -34,15 +38,11 @@
         "PATH"
         ":"
         (lib.makeBinPath runtimeInputs)
+      ] ++ [
+        "--set"
+        "NVIM_APPNAME"
+        "50met0t411yn0n5en5ev41ue"
       ];
   });
 in
-  writeShellApplication {
-    inherit name;
-
-    runtimeInputs = [wrapped-neovim];
-
-    text = ''
-      nvim --clean "$@"
-    '';
-  }
+  wrapped-neovim
