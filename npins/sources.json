@@ -93,12 +93,6 @@
       "url": "https://api.github.com/repos/neovim/neovim/tarball/v0.10.0",
       "hash": "0p366agcv4lz1qs453i44f9h37r09r58qj8g2wpbj0g4f6js48ql"
     },
-    "nixpkgs": {
-      "type": "Channel",
-      "name": "nixpkgs-unstable",
-      "url": "https://releases.nixos.org/nixpkgs/nixpkgs-24.11pre640317.38d3352a65ac/nixexprs.tar.xz",
-      "hash": "056jn02xbwdds0gwvnba6fq2lba7g5aa70qgc4by0fh4cyfa4phy"
-    },
     "nvim-noirbuddy": {
       "type": "Git",
       "repository": {
