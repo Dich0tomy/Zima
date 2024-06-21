@@ -78,8 +78,7 @@ zima-lib.mkNeovim {
       # Check options https://github.com/vhyrro/config/blob/main/rocks.toml
       # https://github.com/mobily/.nvim/tree/main/lua/pickers/spectre
       # github prescientmoon/scrap.nvim -- contribute to that bitch, add a Subst
-    ]
-    ++ builtins.attrValues self'.legacyPackages.vimPlugins;
+    ] ++ builtins.attrValues self'.legacyPackages.vimPlugins or {};
 
   extraLuaPackages = p: [
     p.magick

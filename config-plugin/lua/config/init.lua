@@ -1,5 +1,0 @@
-require("config.init")
-require("config.init")
-require("config.init")
-require("config.init")
-require("config.init")

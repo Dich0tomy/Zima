@@ -32,14 +32,12 @@
       systems = ["x86_64-linux"];
 
       imports = [
-        ./config-plugin
+				./nix/plugins # Config plugin, config framework, external plugins
       ];
 
       perSystem = {
         pkgs,
         self',
-        zima-lib,
-        npins,
         ...
       }: {
         _module.args.npins = import ./npins;
@@ -47,10 +45,10 @@
         imports = [
           ./nix/lib
 
-          ./nix/external-plugins.nix
           ./nix/formatter.nix
           ./nix/checks.nix
           ./nix/shell.nix
+
           ./nix/neovims
         ];
       };
