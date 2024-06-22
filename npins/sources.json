@@ -63,6 +63,21 @@
       "url": "https://github.com/mizlan/iswap.nvim/archive/e02cc91f2a8feb5c5a595767d208c54b6e3258ec.tar.gz",
       "hash": "0q2bakml9vnkibak7hhjpmbb9anmps4k9x5nxb4xjzxp7nzhf1ll"
     },
+    "lua-utils.nvim": {
+      "type": "GitRelease",
+      "repository": {
+        "type": "GitHub",
+        "owner": "nvim-neorg",
+        "repo": "lua-utils.nvim"
+      },
+      "pre_releases": false,
+      "version_upper_bound": null,
+      "release_prefix": null,
+      "version": "v1.0.2",
+      "revision": "e565749421f4bbb5d2e85e37c3cef9d56553d8bd",
+      "url": "https://api.github.com/repos/nvim-neorg/lua-utils.nvim/tarball/v1.0.2",
+      "hash": "0bnl2kvxs55l8cjhfpa834bm010n8r4gmsmivjcp548c076msagn"
+    },
     "mellifluous.nvim": {
       "type": "GitRelease",
       "repository": {
