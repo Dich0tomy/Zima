@@ -19,7 +19,7 @@ end)()
 ---@param path Path
 ---@return boolean
 function M.exists(path)
-	return vim.fn.exists(path) == 1
+	return vim.fn.filereadable(path) == 1
 end
 
 return M
