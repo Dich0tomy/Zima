@@ -14,7 +14,7 @@
     legacyPackages.vimPlugins =
       {
         zima-config = pkgs.callPackage ./zima-config {inherit self;};
-        zima-framework = pkgs.callPackage ./zima-framework {inherit self;};
+        kaizen-framework = pkgs.callPackage ./kaizen-framework {inherit self;};
       }
       // (import ./npins-plugins (pkgs // {inherit npins';}));
   };

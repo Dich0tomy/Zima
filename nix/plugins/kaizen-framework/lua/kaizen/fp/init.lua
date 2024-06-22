@@ -1,4 +1,4 @@
-local lu = zf.xpnequire('lua-utils')
+local lu = kzn.xpnequire('lua-utils')
 
 ---Returns the item that matches the first item in statements.
 ---@param value any The value to compare against

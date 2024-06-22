@@ -1,10 +1,12 @@
-zf.modules.parts = {
+kzn.modules.parts = {
   'zima-config.core',
 }
 
-zf.modules.config = {
+kzn.modules.config = {
 	theme = {
 		name = 'kanagawa',
 	},
 	plugins = {},
 }
+
+kzn.modules.load()

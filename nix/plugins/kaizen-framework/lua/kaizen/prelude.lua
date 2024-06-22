@@ -1,5 +1,5 @@
----The global zf module
-_G.zf = {}
+---The global kaizen module
+_G.kzn = {}
 
 ---@package
 ---@param level any log level
@@ -15,33 +15,36 @@ local function log_base(level)
 end
 
 ---Issues a notification error
-_G.zf.error = log_base(vim.log.levels.ERROR)
+_G.kzn.error = log_base(vim.log.levels.ERROR)
 
 ---Issues a notification warning
-_G.zf.warn = log_base(vim.log.levels.WARN)
+_G.kzn.warn = log_base(vim.log.levels.WARN)
 
 ---Issues a notification info
-_G.zf.info = log_base(vim.log.levels.INFO)
+_G.kzn.info = log_base(vim.log.levels.INFO)
 
 ---Issues a notification trace
-_G.zf.trace = log_base(vim.log.levels.TRACE)
+_G.kzn.trace = log_base(vim.log.levels.TRACE)
 
 ---Runs pcall on the require() function
 ---@param name string name of the module
 ---@return boolean status,table module
-_G.zf.pequire = function(name)
+function _G.kzn.pequire(name)
 	return pcall(require, name)
 end
 
 ---Tries to run require(name) and notifies an error if it fails
 ---@param name string name of the module
----@return boolean status, table module, any...
-_G.zf.xpnequire = function(name)
+---@return boolean status, table module
+function kzn.xpnequire(name)
 	return xpcall(function()
 		return require(name)
-	end, function(err)
-		local debuginfo = debug.getinfo(6, 'Sl')
-		local error_location = ('%s:%s'):format(debuginfo.short_src, debuginfo.currentline)
-		zf.error('Module "%s" could not be loaded.\nCalled from %s\nError:```\n%s\n```', name, error_location, err)
+	end, function()
+		kzn.error(
+		  debug.traceback(
+		    ('Module "%s" could not be loaded'):format(name),
+        4
+		  )
+		)
 	end)
 end

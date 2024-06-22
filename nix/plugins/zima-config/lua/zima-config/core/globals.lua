@@ -1,4 +1,4 @@
-return zf.modules.create({
+return kzn.modules.create({
   name = "globals",
   ---@class GlobalsConfig
   config = {

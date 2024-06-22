@@ -33,7 +33,7 @@ What to work on:
 - [x] Pick the plugins I wanna use
 - [x] Add plugins that aren't in nixpkgs
 - [x] Write a wrapper around my config as a plugin
-- [ ] Create a config framework
+- [ ] Create a config framework (change name to kaizen)
 - [ ] Create very basic neovim configuration without plugins for now
 - [ ] Create configurations for said plugins, one by one, modules
 - [ ] Enjoy!

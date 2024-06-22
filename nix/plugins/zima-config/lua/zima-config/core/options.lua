@@ -1,5 +1,5 @@
 -- TODO: Zima vim options module
-return zf.modules.create({
+return kzn.modules.create({
   name = "options",
   entry = function()
     vim.opt.exrc = true -- Loads .nvim.lua

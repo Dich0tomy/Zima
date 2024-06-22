@@ -1,4 +1,4 @@
-return zf.modules.set({
+return kzn.modules.set({
   'zima-config.core.globals',
   'zima-config.core.options',
   'zima-config.core.commands',

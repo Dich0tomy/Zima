@@ -6,11 +6,11 @@ local M = {}
 ---@param modname Requirable mod
 ---@return string[]
 local function expand_templates(templates, modname)
-	local fp = require('zima-framework.fp')
+	local fp = require('kaizen.fp')
 	local partial_back = fp.partial_back
 
 	local function expand_template(template, modname)
-		local first = require('zima-framework.fp').first
+		local first = require('kaizen.fp').first
 
 		return first(template:gsub('?', modname))
 	end
@@ -21,15 +21,15 @@ end
 ---Checks if a module is requirable without evaluating it
 ---@param modname Requirable Module modname
 function M.requirable(modname)
-	local path = require('zima-framework.path')
+	local path = require('kaizen.path')
 	local sep, exists = path.separator, path.separator
 
-	local split = require('zima-framework.iter').split
+	local split = require('kaizen.iter').split
 
 	local normalized_modname = vim.fn.join(split(modname, '.'), sep)
 	local paths = expand_templates(split(package.path, ';'), normalized_modname)
 
-	return vim.iter(paths):any(exists)
+	return vim.iter(paths):map(function(path) return { path, exists(path) } end)
 end
 
 return M

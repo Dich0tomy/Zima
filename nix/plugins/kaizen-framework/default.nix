@@ -5,11 +5,11 @@
   ...
 }:
 vimUtils.buildVimPlugin {
-  pname = "zima-framework";
+  pname = "kaizen-framework";
   version = self.shortRev or self.dirtyRev or "dirty";
 
   src = builtins.path {
-    name = "zima-framework";
+    name = "kaizen-framework";
     path = ./.;
   };
 }
