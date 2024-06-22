@@ -97,6 +97,15 @@ local function second(...)
 	return partial(nth, 2)(...)
 end
 
+---Returns a function that compares its argument to `value`
+---@param value any Value to compare against
+---@return fun(x: any): boolean
+local function equal(value)
+  return function(x)
+    return x == value
+  end
+end
+
 return {
 	match = match,
 	lazy_string_concat = lazy_string_concat,
@@ -108,4 +117,5 @@ return {
 	nth = nth,
 	first = first,
 	second = second,
+	equal = equal,
 }

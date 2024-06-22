@@ -2,34 +2,48 @@ local M = {}
 
 ---@package
 ---Expands `?` in `package.path` templates with the correct modname
----@param templates string[] package.path templates
----@param modname Requirable mod
+---@param path string A path with a glob or not with the module
+---@param modname string module name
 ---@return string[]
-local function expand_templates(templates, modname)
-	local fp = require('kaizen.fp')
-	local partial_back = fp.partial_back
+local function contains_module(path, modname)
+	local equal = require('kaizen.fp').equal
+  local exists = require('kaizen.path').exists
+  local concat = require('kaizen.path').concat
 
-	local function expand_template(template, modname)
-		local first = require('kaizen.fp').first
+	local file_mod = ('lua/%s.lua'):format(modname)
+	local dir_mod = ('lua/%s/init.lua'):format(modname, modname)
 
-		return first(template:gsub('?', modname))
-	end
+  -- false - dont use 'suffixes' and 'wildignore'
+  -- true - return a list
+	return vim.iter(vim.fn.glob(path, false, true))
+		:map(function(p)
+			return
+			  exists(concat(p, file_mod))
+			  or exists(concat(p, dir_mod))
+		end)
+		:any(equal(true))
+end
 
-	return vim.iter(templates):map(partial_back(expand_template, modname)):totable()
+---Checks if a module is requirable without evaluating it
+---@param runtimepaths Path[] Runtime path
+---@param modname Requirable Module modname
+---@return boolean # Is the module requirable?
+function M.requirable_from(runtimepaths, modname)
+	local split = require('kaizen.iter').split
+	local partial_back = require('kaizen.fp').partial_back
+  local concat = require('kaizen.path').concat
+
+	local normalized_modname = concat(split(modname, '.'))
+
+	return vim.iter(runtimepaths)
+	  :any(partial_back(contains_module,normalized_modname))
 end
 
 ---Checks if a module is requirable without evaluating it
 ---@param modname Requirable Module modname
+---@return boolean # Is the module requirable?
 function M.requirable(modname)
-	local path = require('kaizen.path')
-	local sep, exists = path.separator, path.separator
-
-	local split = require('kaizen.iter').split
-
-	local normalized_modname = vim.fn.join(split(modname, '.'), sep)
-	local paths = expand_templates(split(package.path, ';'), normalized_modname)
-
-	return vim.iter(paths):map(function(path) return { path, exists(path) } end)
+  return M.requirable_from(vim.opt.rtp:get(), modname)
 end
 
 return M

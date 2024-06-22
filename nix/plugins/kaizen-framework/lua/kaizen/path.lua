@@ -22,4 +22,16 @@ function M.exists(path)
 	return vim.fn.filereadable(path) == 1
 end
 
+---Concatenates path elements
+---@param ... string[]|... string elems
+---@return string
+function M.concat(...)
+	local num = select('#', ...)
+  if num == 1 then
+    return table.concat(..., M.separator)
+  else
+    return table.concat({...}, M.separator)
+  end
+end
+
 return M
