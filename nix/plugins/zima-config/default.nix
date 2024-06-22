@@ -5,7 +5,7 @@
   ...
 }:
 vimUtils.buildVimPlugin {
-  pname = "zima-config-plugin";
+  pname = "zima-config";
   version = self.shortRev or self.dirtyRev or "dirty";
 
   src = builtins.path {

@@ -5,7 +5,7 @@
   ...
 }:
 vimUtils.buildVimPlugin {
-  pname = "zima-framework-plugin";
+  pname = "zima-framework";
   version = self.shortRev or self.dirtyRev or "dirty";
 
   src = builtins.path {
