@@ -80,7 +80,7 @@ end
 ---@param ... any Args
 ---@return any # Nth arg
 local function nth(n, ...)
-	return arg[n]
+	return ({...})[n]
 end
 
 ---Returns the first argument passed to this function
