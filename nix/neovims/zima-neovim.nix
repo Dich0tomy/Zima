@@ -24,6 +24,7 @@ zima-lib.mkNeovim {
       # Group them
       nvim-treesitter.withAllGrammars
       neogit
+      nvim-luapad
       diffview-nvim
       lualine-nvim # for now, Ill switch to either heirline or write my own
       oil-nvim
