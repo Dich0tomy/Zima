@@ -26,6 +26,8 @@
   };
 
   wrapped-neovim = (wrapNeovimUnstable neovim config).overrideAttrs (prev: {
+  	meta.mainProgram = name;
+
     postFixup = prev.postFixup or "" + ''
       mv $out/bin/{nvim,${name}}
     '';
