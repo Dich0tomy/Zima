@@ -80,7 +80,7 @@ end
 ---@param ... any Args
 ---@return any # Nth arg
 local function nth(n, ...)
-	return ({...})[n]
+	return ({ ... })[n]
 end
 
 ---Returns the first argument passed to this function
@@ -101,9 +101,9 @@ end
 ---@param value any Value to compare against
 ---@return fun(x: any): boolean
 local function equal(value)
-  return function(x)
-    return x == value
-  end
+	return function(x)
+		return x == value
+	end
 end
 
 return {

@@ -1,5 +1,5 @@
 kzn.modules.parts = {
-  'zima-config.core',
+	'zima-config.core',
 }
 
 kzn.modules.config = {

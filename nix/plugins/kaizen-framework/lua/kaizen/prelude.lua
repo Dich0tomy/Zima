@@ -40,11 +40,6 @@ function kzn.xpnequire(name)
 	return xpcall(function()
 		return require(name)
 	end, function()
-		kzn.error(
-		  debug.traceback(
-		    ('Module "%s" could not be loaded'):format(name),
-        4
-		  )
-		)
+		kzn.error(debug.traceback(('Module "%s" could not be loaded'):format(name), 4))
 	end)
 end

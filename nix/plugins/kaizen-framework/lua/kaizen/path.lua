@@ -27,11 +27,11 @@ end
 ---@return string
 function M.concat(...)
 	local num = select('#', ...)
-  if num == 1 then
-    return table.concat(..., M.separator)
-  else
-    return table.concat({...}, M.separator)
-  end
+	if num == 1 then
+		return table.concat(..., M.separator)
+	else
+		return table.concat({ ... }, M.separator)
+	end
 end
 
 return M
