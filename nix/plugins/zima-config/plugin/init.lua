@@ -1,1 +1,1 @@
-require("zima-config")
+require('zima-config')

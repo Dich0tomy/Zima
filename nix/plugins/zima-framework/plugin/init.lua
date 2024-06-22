@@ -1,1 +1,1 @@
--- Prelude
+require('zima-framework')

@@ -1,1 +1,2 @@
-return { hello = function() vim.print("Hello, World!") end }
+require('zima-framework.prelude')
+require('zima-framework.modules.prelude')
