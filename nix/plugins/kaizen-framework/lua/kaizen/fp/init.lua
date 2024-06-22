@@ -39,9 +39,9 @@ end
 ---@param ... any Args to apply
 ---@return fun(...: any): any # Flipped function
 local function partial(fun, ...)
-	local passed = arg
+	local passed = { ... }
 	return function(...)
-		fun(unpack(passed), ...)
+		return fun(unpack(passed), ...)
 	end
 end
 
@@ -50,9 +50,9 @@ end
 ---@param ... any Args to apply
 ---@return fun(...: any): any # Flipped function
 local function partial_back(fun, ...)
-	local passed = arg
+	local passed = { ... }
 	return function(...)
-		fun(..., unpack(passed))
+		return fun(..., unpack(passed))
 	end
 end
 
