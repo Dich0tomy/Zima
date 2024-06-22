@@ -5,7 +5,7 @@ local M = {}
 ---@param delim string Delimiter to split by
 ---@return string[] # Table of split elements
 function M.split(str, delim)
-  return vim.iter(str:gmatch(('[^%%%s]+'):format(delim))):totable()
+	return vim.iter(str:gmatch(('[^%%%s]+'):format(delim))):totable()
 end
 
 return M

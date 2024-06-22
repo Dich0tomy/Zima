@@ -6,7 +6,7 @@ local lu = zima.xpnequire('lua-utils')
 ---@param compare? fun(lhs: any, rhs: any): boolean A custom comparison function
 ---@return fun(statements: table<any, any>): any # A function to invoke with a table of potential matches.
 local function match(value, compare)
-  return lu.match(value, compare)
+	return lu.match(value, compare)
 end
 
 ---Lazily concatenates a string to prevent runtime errors where an object may not exist
@@ -23,7 +23,7 @@ end
 ---@param ... string An unlimited number of strings.
 ---@return string # The result of all the strings concatenated.
 local function lazy_string_concat(...)
-  return lu.lazy_string_concat(...)
+	return lu.lazy_string_concat(...)
 end
 
 ---Takes a function of two arguments and flips their parameters
@@ -31,7 +31,7 @@ end
 ---@return fun(rhs: any, lhs: any): any # Flipped function
 local function flip(fun)
 	return function(lhs, rhs)
-	  fun(rhs, lhs)
+		fun(rhs, lhs)
 	end
 end
 
@@ -40,9 +40,9 @@ end
 ---@param ... any Args to apply
 ---@return fun(...: any): any # Flipped function
 local function partial(fun, ...)
-  local passed = arg
+	local passed = arg
 	return function(...)
-	  fun(unpack(passed), ...)
+		fun(unpack(passed), ...)
 	end
 end
 
@@ -51,10 +51,10 @@ end
 ---@param ... any Args to apply
 ---@return fun(...: any): any # Flipped function
 local function partial_back(fun, ...)
-  local passed = arg
-  return function(...)
-    fun(..., unpack(passed))
-  end
+	local passed = arg
+	return function(...)
+		fun(..., unpack(passed))
+	end
 end
 
 ---Discards N first arguments
@@ -62,18 +62,18 @@ end
 ---@param fun fun(...: any): any Function to discard args from
 ---@return fun(...: any): any # Func with discarded args
 local function discard(n, fun)
-  return function(...)
-    return fun(select(n + 1, ...))
-  end
+	return function(...)
+		return fun(select(n + 1, ...))
+	end
 end
 --
 ---Discards first argument
 ---@param fun fun(...: any): any Function to discard args from
 ---@return fun(...: any): any # Func with discarded args
 local function discard_first(fun)
-  return function(...)
-    return fun(select(...))
-  end
+	return function(...)
+		return fun(select(...))
+	end
 end
 
 ---Returns the nth argument passed to this function
@@ -81,33 +81,32 @@ end
 ---@param ... any Args
 ---@return any # Nth arg
 local function nth(n, ...)
-  return arg[n]
+	return arg[n]
 end
 
 ---Returns the first argument passed to this function
 ---@return ... any Args
 ---@return any first First arg
 local function first(...)
-  return partial(nth, 1)(...)
+	return partial(nth, 1)(...)
 end
-
 
 ---Returns the second argument passed to this function
 ---@return ... any Args
 ---@return any second First arg
 local function second(...)
-  return partial(nth, 2)(...)
+	return partial(nth, 2)(...)
 end
 
 return {
-  match = match,
-  lazy_string_concat = lazy_string_concat,
-  flip = flip,
-  discard = discard,
-  discard_first = discard_first,
-  partial = partial,
-  partial_back = partial_back,
-  nth = nth,
-  first = first,
-  second = second,
+	match = match,
+	lazy_string_concat = lazy_string_concat,
+	flip = flip,
+	discard = discard,
+	discard_first = discard_first,
+	partial = partial,
+	partial_back = partial_back,
+	nth = nth,
+	first = first,
+	second = second,
 }

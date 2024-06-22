@@ -26,11 +26,14 @@
   };
 
   wrapped-neovim = (wrapNeovimUnstable neovim config).overrideAttrs (prev: {
-  	meta.mainProgram = name;
+    meta.mainProgram = name;
 
-    postFixup = prev.postFixup or "" + ''
-      mv $out/bin/{nvim,${name}}
-    '';
+    postFixup =
+      prev.postFixup
+      or ""
+      + ''
+        mv $out/bin/{nvim,${name}}
+      '';
 
     generatedWrapperArgs =
       prev.generatedWrapperArgs
@@ -40,7 +43,8 @@
         "PATH"
         ":"
         (lib.makeBinPath runtimeInputs)
-      ] ++ [
+      ]
+      ++ [
         "--set"
         "NVIM_APPNAME"
         "50met0t411yn0n5en5ev41ue"

@@ -30,7 +30,7 @@ function zf.modules.set(members)
 		local ok, _module = zf.pequire(module_path)
 
 		if ok and not is_requireable then
-		  zf.error('Module %s is falsely requirable', module_path)
+			zf.error('Module %s is falsely requirable', module_path)
 		end
 	end)
 end
