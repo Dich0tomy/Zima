@@ -1,3 +1,4 @@
+---The global zf module
 _G.zf = {}
 
 ---@package

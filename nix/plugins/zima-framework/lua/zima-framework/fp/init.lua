@@ -1,5 +1,4 @@
--- Most of this is 1:1 lua utils by @Vhyrro
-local lu = zima.xpnequire('lua-utils')
+local lu = zf.xpnequire('lua-utils')
 
 ---Returns the item that matches the first item in statements.
 ---@param value any The value to compare against

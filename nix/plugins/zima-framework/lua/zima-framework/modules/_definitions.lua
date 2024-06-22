@@ -46,10 +46,10 @@
 
 ---@class ModuleInstance
 ---@field module ModuleSchemaName What module this is
----@field entry fun(config: ModuleConfigSchema) The entrypoint of the module
+---@field entry fun(config?: ModuleConfigSchema) The entrypoint of the module
 
 ---@class ModuleDefinition
 ---@field name ModuleSchemaName The name of the module
 ---@field config? ModuleConfig Config definition
 ---@field depends? ModuleSchemaName[] Dependent modules
----@field entry fun(config: ModuleConfigSchema) The entrypoint of the module
+---@field entry fun(config?: ModuleConfigSchema) The entrypoint of the module

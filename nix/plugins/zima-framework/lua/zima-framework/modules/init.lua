@@ -3,7 +3,7 @@
 -- no matter in what order the modules are defined
 -- Add validators to `config`
 
-_G._ZimaModules = {}
+_G._Zima_UserDefinedModules = {}
 
 ---Defines a module schema
 ---@param schema ModuleSchema Module definition

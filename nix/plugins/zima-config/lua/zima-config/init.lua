@@ -1,8 +1,5 @@
 zf.modules.parts = {
-	'zf-config.globals',
-	'zf-config.themes',
-	'zf-config.keybinds',
-	'zf-config.commands',
+  'zima-config.core',
 }
 
 zf.modules.config = {
@@ -11,10 +8,3 @@ zf.modules.config = {
 	},
 	plugins = {},
 }
-
---[=[
-zf.define_module
-zf.create_module
--- each module will have a schema (options and such)
--- each top level module will define own module kind
-]=]
