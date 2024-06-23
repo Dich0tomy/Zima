@@ -49,7 +49,7 @@ end
 ---@param fun fun(...: any): any Function to apply args to
 ---@param ... any Args to apply
 ---@return fun(...: any): any # Flipped function
-local function partial_back(fun, ...)
+local function partial_(fun, ...)
 	local passed = { ... }
 	return function(...)
 		return fun(..., unpack(passed))
@@ -113,7 +113,7 @@ return {
 	discard = discard,
 	discard_first = discard_first,
 	partial = partial,
-	partial_back = partial_back,
+	partial_ = partial_,
 	nth = nth,
 	first = first,
 	second = second,

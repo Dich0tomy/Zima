@@ -1,10 +1,10 @@
 local M = {}
 
 ---@package
----Expands `?` in `package.path` templates with the correct modname
+---Checks if a given path contains a module with a given name
 ---@param path string A path with a glob or not with the module
 ---@param modname string module name
----@return string[]
+---@return boolean
 local function contains_module(path, modname)
 	local equal = require('kaizen.fp').equal
 	local exists = require('kaizen.path').exists
@@ -29,12 +29,12 @@ end
 ---@return boolean # Is the module requirable?
 function M.requirable_from(runtimepaths, modname)
 	local split = require('kaizen.iter').split
-	local partial_back = require('kaizen.fp').partial_back
+	local partial_ = require('kaizen.fp').partial_
 	local concat = require('kaizen.path').concat
 
 	local normalized_modname = concat(split(modname, '.'))
 
-	return vim.iter(runtimepaths):any(partial_back(contains_module, normalized_modname))
+	return vim.iter(runtimepaths):any(partial_(contains_module, normalized_modname))
 end
 
 ---Checks if a module is requirable without evaluating it
