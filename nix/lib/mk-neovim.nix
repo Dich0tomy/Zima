@@ -8,6 +8,8 @@
 }: {
   name,
   src,
+  viAlias ? false,
+  vimAlias ? false,
   plugins ? [],
   runtimeInputs ? [],
   extraLuaPackages ? (_: []),
@@ -22,7 +24,7 @@
   };
 
   config = neovimUtils.makeNeovimConfig {
-    inherit plugins extraLuaPackages;
+    inherit plugins extraLuaPackages viAlias vimAlias;
   };
 
   wrapped-neovim = (wrapNeovimUnstable neovim config).overrideAttrs (prev: {
