@@ -14,6 +14,8 @@
   runtimeInputs ? [],
   extraLuaPackages ? (_: []),
 }: let
+  nonsenseValue = "50me_t0t411y_n0n5en5e_v41ue";
+
   neovim = neovim-unwrapped.overrideAttrs {
     src = src;
     version = src.revision;
@@ -49,7 +51,7 @@
       ++ [
         "--set"
         "NVIM_APPNAME"
-        "50met0t411yn0n5en5ev41ue"
+        nonsenseValue
       ];
   });
 in
