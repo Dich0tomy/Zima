@@ -1,2 +1,2 @@
 require('kaizen.prelude')
-require('kaizen.modules')
+require('kaizen.module')
