@@ -1,6 +1,5 @@
 {
   vimUtils,
-  lib,
   self,
   ...
 }:

@@ -1,22 +1,15 @@
 {
   self',
-  npins',
   zima-lib,
-  wrapNeovimUnstable,
-  neovim-unwrapped,
-  neovimUtils,
   vimPlugins,
   lua-language-server,
   ripgrep,
   fd,
   luarocks,
   luajit,
-  hello,
 }:
 zima-lib.mkNeovim {
   name = "zima";
-
-  src = npins'.neovim;
 
   plugins = with vimPlugins;
     [

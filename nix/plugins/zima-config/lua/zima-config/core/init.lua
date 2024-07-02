@@ -1,7 +1,4 @@
-return kzn.modules.set({
-	'zima-config.core.globals',
-	'zima-config.core.options',
-	'zima-config.core.commands',
-	'zima-config.core.keybinds',
-	'zima-config.core.themes',
-})
+require('zima-config.core.globals')
+require('zima-config.core.options')
+require('zima-config.core.commands')
+require('zima-config.core.keybinds')

@@ -1,19 +1,20 @@
 {
-  writeShellApplication,
   wrapNeovimUnstable,
   neovim-unwrapped,
   neovimUtils,
   lib,
+  npins',
   ...
 }: {
   name,
-  src,
+  src ? npins'.neovim,
   viAlias ? false,
   vimAlias ? false,
   plugins ? [],
   runtimeInputs ? [],
   extraLuaPackages ? (_: []),
 }: let
+	# TODO: Clean this from rtp
   nonsenseValue = "50me_t0t411y_n0n5en5e_v41ue";
 
   neovim = neovim-unwrapped.overrideAttrs {
