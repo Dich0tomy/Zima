@@ -1,3 +1,4 @@
+require('zima-config.core.prelude')
 require('zima-config.core.globals')
 require('zima-config.core.options')
 require('zima-config.core.commands')
