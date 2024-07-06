@@ -13,12 +13,15 @@ end
 ---@param range [`T`] The range to partition
 ---@param pred fun(T): boolean The predicate by which to partition
 ---@return [T] satisfying satisfying the predicate, [T] not satisfying the predicate
-function M.partition(range, pred)
-  local nah = require('zima-config.fp').nah
+---@return [T] not satisfying satisfying the predicate, [T] not satisfying the predicate
+function M.partition(range, pred, proj_beg, proj_end)
+  local fp = require('zima-config.lib.fp')
+  proj_beg = fp.maybe_fn(proj_beg)
+  proj_end = fp.maybe_fn(proj_end)
 
   return
-    vim.iter(range):filter(pred):totable(),
-    vim.iter(range):filter(nah(pred)):totable()
+    proj_end(vim.iter(range):map(proj_beg):filter(pred):totable()) or {},
+    proj_end(vim.iter(range):map(proj_beg):filter(fp.nah(pred)):totable()) or {}
 end
 
 return M
