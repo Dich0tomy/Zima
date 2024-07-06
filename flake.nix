@@ -22,17 +22,13 @@
     I'm going home.
   '';
 
-  inputs = {
-    parts.url = "github:hercules-ci/flake-parts";
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-  };
-
   outputs = {parts, ...} @ inputs:
     parts.lib.mkFlake {inherit inputs;} {
       systems = ["x86_64-linux"];
 
       imports = [
         ./nix/plugins # Config plugin, config framework, external plugins
+        ./nix/checks.nix
       ];
 
       perSystem = {
@@ -46,11 +42,16 @@
           ./nix/lib
 
           ./nix/formatter.nix
-          ./nix/checks.nix
           ./nix/shell.nix
 
           ./nix/neovims
         ];
       };
     };
+
+  inputs = {
+    parts.url = "github:hercules-ci/flake-parts";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    neorocks.url = "github:nvim-neorocks/neorocks";
+  };
 }

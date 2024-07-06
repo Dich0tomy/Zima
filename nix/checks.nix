@@ -1,24 +1,38 @@
-# FIXME: for some reason this doesn't work, I get no output in terminal lmao
-{
-  pkgs,
-  self',
-  ...
-}: {
-  checks.default = pkgs.writeShellApplication {
-    name = "zima-checks";
+{inputs, ...}: {
+  perSystem = {
+    pkgs,
+    system,
+    config,
+    ...
+  }: {
+    _module.args.pkgs = import inputs.nixpkgs {
+      inherit system;
+      overlays = [ inputs.neorocks.overlays.default ];
+    };
 
-    runtimeInputs = [
-      pkgs.gum
-      pkgs.typos
-      self'.packages.default
-    ];
+    checks.default = pkgs.writeShellApplication {
+      name = "typos-check";
 
-    text = ''
-      gum style --border="rounded" --padding="0 1" --bold --border-foreground="#ffc0cb" "Running typos!"
-      typos .
+      runtimeInputs = [
+        pkgs.gum
+        pkgs.typos
+      ];
 
-      gum style --border="rounded" --padding="0 1" --bold --border-foreground="#ffc0cb" "Checking zima!"
-      zima --headless +exit
-    '';
+      text = ''
+        gum style --border="rounded" --padding="0 1" --bold --border-foreground="#ffc0cb" "Running typos!"
+        typos .
+        '';
+    };
+
+    checks.neorocks = pkgs.neorocksTest {
+      name = "zima-config";
+
+      src = config.legacyPackages.vimPlugins.zima-config;
+      neovim = config.packages.default;
+
+      luaPackages = ps: [
+        ps.plenary-nvim
+      ];
+    };
   };
 }
