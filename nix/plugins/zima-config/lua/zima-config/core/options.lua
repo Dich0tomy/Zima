@@ -29,7 +29,7 @@ vim.opt.tabstop = 2
 
 vim.opt.showtabline = 1 -- Only display tabline if there are 2 or more tabs
 vim.opt.laststatus = 3 -- When will the last window have a statusline, 3 means uniform on all
-vim.opt.colorcolumn = 120
+vim.opt.colorcolumn = '+120'
 
 vim.opt.list = true -- Shows tabs, spaces, etc.
 vim.opt.listchars = {
