@@ -4,7 +4,7 @@
 ---@return fun(rhs: U, lhs: `T`): any # Flipped function
 local function flip(fun)
 	return function(lhs, rhs)
-		fun(rhs, lhs)
+		return fun(rhs, lhs)
 	end
 end
 
