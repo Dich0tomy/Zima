@@ -26,8 +26,9 @@ local function lazy_string_concat(...)
 end
 
 ---Takes a function of two arguments and flips their parameters
----@param fun fun(lhs: any, rhs: any): any Function to flip
----@return fun(rhs: any, lhs: any): any # Flipped function
+---@generic T, U
+---@param fun fun(lhs: `T`, rhs: `U`): any Function to flip
+---@return fun(rhs: U, lhs: `T`): any # Flipped function
 local function flip(fun)
 	return function(lhs, rhs)
 		fun(rhs, lhs)
@@ -37,7 +38,7 @@ end
 ---Partially applies some function arguments
 ---@param fun fun(...: any): any Function to apply args to
 ---@param ... any Args to apply
----@return fun(...: any): any # Flipped function
+---@return fun(...: any): any # Function with args applied
 local function partial(fun, ...)
 	local passed = { ... }
 	return function(...)
@@ -48,7 +49,7 @@ end
 ---Partially applies some function arguments to the back
 ---@param fun fun(...: any): any Function to apply args to
 ---@param ... any Args to apply
----@return fun(...: any): any # Flipped function
+---@return fun(...: any): any # Function with args applied to the back
 local function partial_(fun, ...)
 	local passed = { ... }
 	return function(...)
@@ -56,7 +57,7 @@ local function partial_(fun, ...)
 	end
 end
 
----Discards N first arguments
+---Wraps the function an discards N first arguments
 ---@param n number
 ---@param fun fun(...: any): any Function to discard args from
 ---@return fun(...: any): any # Func with discarded args
@@ -66,7 +67,7 @@ local function discard(n, fun)
 	end
 end
 --
----Discards first argument
+---Wraps the function an discards the first argument
 ---@param fun fun(...: any): any Function to discard args from
 ---@return fun(...: any): any # Func with discarded args
 local function discard_first(fun)
@@ -84,22 +85,26 @@ local function nth(n, ...)
 end
 
 ---Returns the first argument passed to this function
----@return ... any Args
----@return any first First arg
-local function first(...)
-	return partial(nth, 1)(...)
+---@generic T
+---@param a `T` The first arg
+---@return T # The first argument
+local function first(a)
+	return a
 end
 
 ---Returns the second argument passed to this function
----@return ... any Args
----@return any second First arg
-local function second(...)
-	return partial(nth, 2)(...)
+---@generic T
+---@param _a any First arg, discarded
+---@param b `T` Second arg, returned
+---@return T # Second arg
+local function second(_a, b)
+	return b
 end
 
 ---Returns a function that compares its argument to `value`
----@param value any Value to compare against
----@return fun(x: any): boolean
+---@generic T
+---@param value `T` Value to compare against
+---@return fun(x: T): boolean
 local function equal(value)
 	return function(x)
 		return x == value
@@ -129,13 +134,32 @@ local function arraified(f)
   end
 end
 
----Returns self
----@generic T
----@param x `T`
----@return T
-local function id(x) return x end
+---Returns the args untouched
+---@param ... any Args to return
+---@return ... any
+local function id(...)
+  return ...
+end
 
----Reduces result
+---Returns `nil` if arg is nil, otherwise the function
+---@generic Rs, Ts
+---@param value fun(...: `Ts`): `Rs`|nil Value to call/return
+---@return fun(...: Ts): `Rs`|fun(...: any): ...
+local function maybe_fn(value)
+  assert(type(value) == 'function' or value == nil)
+
+  if type(value) == "function" then
+    return value
+  else
+    return id
+  end
+end
+
+---Reduces the result over a function
+---@generic T, U, R
+---@param f fun(arg1: T, arg2: U): `R` The applied function
+---@param acc R The accumulator and initial value
+---@return R
 local function foldl(f, acc, ...)
   if select("#", ...) == 0 then
     return acc
@@ -144,23 +168,40 @@ local function foldl(f, acc, ...)
   return foldl(f, f(acc, l), select(2, ...))
 end
 
----Reduces result
+---Composes two functions f, g and into `g(f(...))`
+---@generic FirstR, SecondR
+---@param f fun(...: any): `FirstR`
+---@param g fun(...: FirstR): `SecondR`
+---@return fun(...: any): SecondR
 local function compose(f, g)
   return function(...)
     return g(f(...))
   end
 end
 
+---Chains several functions invocations together
+---chain(a, b, c) results in c(b(a(...)))
+---@param ... fun(...: any): ...
+---@return fun(...: any): ...
 local function chain(...)
   return foldl(compose, id, ...)
 end
 
 ---Returns `not f(...)`
----@param f fun(any...): boolean func to inverse
----@return fun(any...): boolean
+---@param f fun(...: any): boolean func to inverse
+---@return fun(...: any): boolean
 local function nah(f)
   return function(...)
     return not f(...)
+  end
+end
+
+---Formats the arguments
+---@param str string The format string
+---@return fun(...: any): string
+local function fmt(str)
+  return function(...)
+    return str:format(...)
   end
 end
 
@@ -181,5 +222,7 @@ return {
   id = id,
   compose = compose,
   chain = chain,
-  nah = nah
+  nah = nah,
+  fmt = fmt,
+  maybe_fn = maybe_fn
 }
