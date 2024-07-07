@@ -1,4 +1,3 @@
----The global kaizen module
 _G.zima = {}
 
 ---@package
@@ -9,7 +8,16 @@ local function log_base(level)
 	---@param ... any Arguments to format
 	return function(msg, ...)
 		if msg then
-			vim.notify((msg):format(...), level)
+		  local args = vim.iter({...})
+		    :map(function(arg)
+		      if type(arg) ~= 'function' and type(arg) ~= 'table' then
+		        return arg
+          else
+            return vim.inspect(arg)
+          end
+        end)
+		    :totable()
+			vim.notify((msg):format(unpack(args)), level)
 		end
 	end
 end
