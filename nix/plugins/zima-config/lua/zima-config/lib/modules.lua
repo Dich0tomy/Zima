@@ -11,30 +11,39 @@ function M.load_modules(mods, provider)
 
   local specs = vim.iter(mods)
     :map(function(modname)
-      return { modname, fp.second(zima.pequired(modname)) }
+      return { modname, vim.tbl_isempty(vim.loader.find(modname)) }
     end)
+    :totable()
 
-  local good, bad = iter.partition(specs, fp.chain(unpack, fp.second, fp.equal(true)))
+  local unwrap_mods = fp.chain(unpack, fp.first)
+
+  local good, bad = iter.partition(specs, fp.chain(unpack, fp.second, fp.equal(false)))
 
   if #bad ~= 0 then
     local error = vim.iter(bad)
-      :map(function(name) return ('- %s'):format(name) end)
+      :map(unwrap_mods)
+      :map(fp.chain(vim.inspect, fp.fmt('- %s')))
       :join('\n')
 
-    zima.error(('Failed to load the following modules:\n%s'):format(error))
+    zima.error('Failed to load the following modules:\n%s', error)
   end
 
-  local ok, result = zima.pequire(provider)
-  if not ok then
-    zima.error(('Cannot require the provider!\n%s'):format(result))
+  local provider_ok, possible_provided = zima.pequire(provider)
+  if not provider_ok then
+    zima.error('Cannot require the provider!\n%s', possible_provided)
+    return
   end
 
-  ok, result = pcall(result.setup, good)
+  local loaded_good = vim.iter(good)
+    :map(fp.chain(unwrap_mods, require))
+    :flatten()
+    :totable()
 
-  if not ok then
-    zima.error(('While trying to setup the provider with specs!\n%s'):format(result))
-  else
-    zima.info('Successfully loaded all the user modules!');
+  zima.trace('Loaded goods: %s', loaded_good)
+
+  local setup_ok, possible_error = pcall(possible_provided.load, loaded_good)
+  if not setup_ok then
+    zima.error('While trying to setup the provider with specs!\n%s', possible_error)
   end
 end
 
